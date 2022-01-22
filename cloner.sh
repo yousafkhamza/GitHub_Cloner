@@ -67,6 +67,7 @@ fi
 
 #if you have token
 curl -s -H "Authorization: token $Git_Token" "https://api.github.com/search/repositories?q=user:$Git_User&per_page=200" | grep -o 'git@[^"]*' > .git_repo_list.txt
+echo "You are entering the token so will clone the private repos too."
 cloner_main
 
 ###################################################Thank_You#######################################################
