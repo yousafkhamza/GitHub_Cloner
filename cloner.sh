@@ -21,6 +21,30 @@ Git_User=$1
 Git_Token=$2
 rm -f .git_repo_list.txt
 
+function cloner_main {
+    echo "Fetched Repo list below (without forked): "
+    echo "---------"
+    cat .git_repo_list.txt
+    echo "---------"
+    echo "Cloning starts in 10sec..." 
+    echo "if you wouldn't like to clone the repos please be exit the script meanwhile the countdown using [ctrl + c]...."
+    echo "Countdown Begins..."
+    count=9; ((++count)) ; while ((--count >=0)); do sleep 1; echo -e "\033[31;5m$count..\033[0m"; done; #backword countdown
+    echo "Cloning Starts..."
+    if [ ! -d "./Clonings" ]; then
+        mkdir ./Clonings
+    else
+        rm -f ./Clonings/.git_repo_list.txt
+    fi
+    cp .git_repo_list.txt ./Clonings/.git_repo_list.txt
+    cd ./Clonings
+    for item in $(cat .git_repo_list.txt | cut -d: -f2); do echo "-----" && git clone https://github.com/$item; done
+    echo "-----" 
+    echo "Cloning Completed"
+    echo "Please take a look under $(pwd)/Clonings/ Directory"
+    exit 1
+}
+
 if [ -z "$Git_User" ]
 then
     echo "Please specify a GitHub UserName."
@@ -34,27 +58,7 @@ then
     read -p 'Do you want to continue without private repos [Y/N]: ' ask1
     if [[ "$ask1" =~ ^([yY][eE][sS]|[yY])+$ ]];then
         curl -s "https://api.github.com/search/repositories?q=user:$Git_User&per_page=200" | grep -o 'git@[^"]*' > .git_repo_list.txt
-        echo "Fetched Repo list below (without private and forked): "
-        echo "---------"
-        cat .git_repo_list.txt
-        echo "---------"
-        echo "Cloning starts in 10sec..." 
-        echo "if you wouldn't like to clone the repos please be exit the script meanwhile the countdown using [ctrl + c]...."
-        echo "Countdown Begins..."
-        count=9; ((++count)) ; while ((--count >=0)); do sleep 1; echo -e "\033[31;5m$count..\033[0m"; done; #backword countdown
-        echo "Cloning Starts..."
-        if [ ! -d "./Clonings" ]; then
-            mkdir ./Clonings
-        else
-            rm -f ./Clonings/.git_repo_list.txt
-        fi
-        cp .git_repo_list.txt ./Clonings/.git_repo_list.txt
-        cd ./Clonings
-        for item in $(cat .git_repo_list.txt | cut -d: -f2); do echo "-----" && git clone https://github.com/$item; done
-        echo "-----" 
-        echo "Cloning Completed"
-        echo "Please take a look under $(pwd)/Clonings/ Directory"
-        exit 1
+        cloner_main
     else
         echo "Quited. Thank you for using the script."
         exit 1
@@ -63,25 +67,6 @@ fi
 
 #if you have token
 curl -s -H "Authorization: token $Git_Token" "https://api.github.com/search/repositories?q=user:$Git_User&per_page=200" | grep -o 'git@[^"]*' > .git_repo_list.txt
-echo "Fetched Repo list below (without forked): "
-echo "---------"
-cat .git_repo_list.txt
-echo "---------"
-echo "Cloning starts in 10sec..."
-echo "if you wouldn't like to clone the repos please be exit the script meanwhile the countdown using [ctrl + c]...."
-echo "Countdown Begins..."
-count=9; ((++count)) ; while ((--count >=0)); do sleep 1; echo -e "\033[31;5m$count..\033[0m"; done; #backword countdown
-echo "Cloning Starts..."
-if [ ! -d "./Clonings" ]; then
-    mkdir ./Clonings
-else
-    rm -f ./Clonings/.git_repo_list.txt
-fi
-cp .git_repo_list.txt ./Clonings/.git_repo_list.txt
-cd ./Clonings
-for item in $(cat .git_repo_list.txt | cut -d: -f2); do echo "-----" && git clone https://github.com/$item; done
-echo "-----" 
-echo "Cloning Completed"
-echo "Please take a look under $(pwd)/Clonings/ Directory"
+cloner_main
 
 ###################################################Thank_You#######################################################
