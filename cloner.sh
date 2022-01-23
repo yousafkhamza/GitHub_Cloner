@@ -26,6 +26,11 @@ function cloner_main {
     echo "---------"
     cat .git_repo_list.txt
     echo "---------"
+    repo_count=$(cat .git_repo_list.txt | wc -l)
+    if [ $repo_count == 0 ];then
+        echo "Can't able to Fetch user repos."
+        exit 1
+    fi 
     echo "Cloning starts in 10sec..." 
     echo "if you wouldn't like to clone the repos please be exit the script meanwhile the countdown using [ctrl + c]...."
     echo "Countdown Begins..."
