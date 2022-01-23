@@ -108,9 +108,11 @@ Cloning Completed
 Please take a look under /mnt/c/Users/yousa/GitHub_Cloner_Bash_Script/Clonings/Clonings/ Directory
 ```
 ### _Screenshots_
+
 `Without GitHub API Token`
 ![alt_txt](https://i.ibb.co/25vGxjQ/Screenshot-2.png)
 ![alt_txt](https://i.ibb.co/MpMjFBH/Screenshot-3.png)
+
 `With GitHub API Token`
 ![alt_txt](https://i.ibb.co/0KJk7Fr/Screenshot-4.png)
 ![alt_txt](https://i.ibb.co/mvkxzmD/Screenshot-5.png)
