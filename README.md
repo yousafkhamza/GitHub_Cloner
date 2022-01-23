@@ -3,7 +3,7 @@
 
 ---
 ## Description
-This is a simple bash script for cloning all the repositories under a GitHub user. if you're using a GitHub personal access token with repo privilege then you can clone the private repos too. Also, please note that the bash script is working with GitHub API and forked repos can't be able to download so I will be adding the same on future releases. 
+This is a simple bash script for cloning all the repositories under a GitHub user. if you're using a GitHub personal access token with repo privilege then you can clone the private repos too. Also, please note that the bash script is working with GitHub API and forked repos can't be able to clone. So, I will be adding the same on future releases. 
 
 ----
 ## Feature
